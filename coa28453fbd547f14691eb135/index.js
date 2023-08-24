@@ -1,18 +1,13 @@
-import { Configuration, OpenAIApi } from 'openai';
-import { process } from './env';
+import { Configuration, OpenAIApi } from 'openai'
+import { process } from './env'
 
 const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
-});
+})
 
 const openai = new OpenAIApi(configuration)
 
 const chatbotConversation = document.getElementById('chatbot-conversation')
-
-const conversationArr = [{
-    role: 'system',
-    content: 'You are a highly knowledgeable assistant that is always happy to help.'
-}]
 
 document.addEventListener('submit', (e) => {
     e.preventDefault()
@@ -37,6 +32,6 @@ function renderTypewriterText(text) {
             newSpeechBubble.classList.remove('blinking-cursor')
         }
         i++
-        chatbotConversation.scrollTop - chatbotConversation.scrollHeight
+        chatbotConversation.scrollTop = chatbotConversation.scrollHeight
     }, 50)
 }
