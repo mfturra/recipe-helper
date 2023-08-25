@@ -5,6 +5,7 @@ const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
 });
 
+/* Creates a new instance of the OpenAI API key*/
 const openai = new OpenAIApi(configuration)
 
 const chatbotConversation = document.getElementById('chatbot-conversation')
