@@ -1,5 +1,15 @@
 {
+  "name": "project",
   "dependencies": {
-    "openai": "^4.2.0"
+    "openai": "3.2.1"
+  },
+  "devDependencies": {
+    "vite": "^4.4.9"
+  },
+  "scripts": {
+    "start": "vite",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   }
 }
