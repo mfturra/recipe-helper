@@ -1,4 +1,4 @@
-import OpenAI from "openai";
+import { OpenAI } from "openai";
 import { process } from './env';
 
 const openai = new OpenAI({
