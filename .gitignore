@@ -20,6 +20,7 @@ parts/
 sdist/
 var/
 wheels/
+pip-wheel-metadata/
 share/python-wheels/
 *.egg-info/
 .installed.cfg
@@ -151,6 +152,15 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+# pyenv
+.python-version
+
+# Data
+*transactions*.jsonl
+/examples/data/transactions*
+*.DS_Store
+tmp_*
 
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
