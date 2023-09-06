@@ -1,35 +1,50 @@
 <!doctype html>
 <html>
 
-<head>
-	<title></title>
-	<link rel="stylesheet" href="index.css">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
-</head>
+    <head><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+        <title>Ingredient List Generator</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="index.css">
+    </head>
 
-<body>
-	<main>
-		<section class="intro">
-			<h1>Recipe Helper</h1>
-			<h2>Get ingredients for recipes <strong>fast</strong> without doing <strong>any</strong> research!</h2>
-			<p>Powered by AI🤖</p>
-		</section>
-		<section class="ad-input" id="ad-input">
-			<label for="name">Cuisine Type</label>
-			<input type="text" placeholder="Mediterranean" id="name" autocomplete="on">
-			<label for="desc">Description</label>
-			<textarea placeholder="Greek Lamb Kleftiko" id="desc"></textarea>
-			<label for="target">Total Prep Time</label>
-			<input type="text" placeholder="Under 30min" id="target">
-			<button id="submit-btn">Generate Ingredient List</button>
-		</section>
-		<section class="ad-output" id="ad-output">
-			<h4>Your Recipe!</h4>
-		</section>
-	</main>
-	<script type="module" src="index.js"></script>
-</body>
+    <body>
+        <header>
+            <img src="./images/food-ingredients.png" alt="FoodIngredients">
+            <a href="/"><span>Recipe</span>Helper</a>
+        </header>
+        <main>
+            <!--The Setup-->
+            <section id="setup-container">
+                <div class="setup-inner">
+                    <img src="/images/shopping-cart.png">
+                    <div class="speech-bubble-ai" id="speech-bubble-ai">
+                        <p id="shopping-cart-text">
+                            Tell me the name of the type of meat/poultry/fish that you'd like to make tonight and your preferred cook time. I'll give
+                            you the seasoning list and directions for how to prepare and cook it!
+                        </p>
+                    </div>
+                </div>
+                <div class="setup-inner setup-input-container" id="setup-input-container">
+                    <textarea id="setup-textarea" placeholder="Mediterranean cuisine. Greek Lamb Kleftiko"></textarea>
+                    <button class="send-btn" id="send-btn" aria-label="send">
+                        <img src="images/send-btn-icon.png" alt="send">
+                    </button>
+                </div>
+            </section>
+            <!-- The Output -->	
+            <section class="output-container" id="output-container">
+                <div id="output-img-container" class="output-img-container"></div>
+                <p id="output-ingredients"></h1>
+                <p id="output-text"></p>
+            </section>
+        </main>
+        <footer>
+            &copy; 2023 MTurra All rights reserved
+        </footer>
+        <script type="module" src="index.js"></script>
+    </body>
 
 </html>
