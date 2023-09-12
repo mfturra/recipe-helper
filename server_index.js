@@ -41,13 +41,13 @@ app.post('/generate-recipe', async(req, res) => {
     try {
       // Simulate fetching bot reply and directions
       const botReply = await fetchBotReply(userInput);
-      const directions = await fetchDirections(userInput);
-      const ingredients = await fetchIngredients(userInput);
+      const botDirections = await fetchDirections(userInput);
+      const botIngredients = await fetchIngredients(userInput);
     
     // Send JSON response with results
     res.json({ botReply: 'Processing complete for: ' + botReply,
-                direction: directions,
-                ingredients: ingredients});
+                direction: botDirections,
+                ingredients: botIngredients});
   } catch (error) {
     console.error('Error generating recipe:', error);
     res.status(500).json({ error: 'An error occurred while generating the recipe.' });
