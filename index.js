@@ -1,15 +1,20 @@
+// Import libraries for web app
 import { process } from '/env'
 import { Configuration, OpenAIApi } from 'openai'
 
+// Acquire and store input from client (i.e. user)
 const setupInputContainer = document.getElementById('setup-input-container')
 const shoppingCartText = document.getElementById('shopping-cart-text')
 
+// Setup configuration to OpenAI account using API key
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY
 })
 
+// Establish an OpenAI instance (i.e. connection)
 const openai = new OpenAIApi(configuration)
 
+// Listen for when client presses button
 document.getElementById("send-btn").addEventListener("click", () => {
   const setupTextarea = document.getElementById('setup-textarea')
   if (setupTextarea.value) {
@@ -21,6 +26,7 @@ document.getElementById("send-btn").addEventListener("click", () => {
   }
 })
 
+// Configure the model & response, while outputting response to console
 async function fetchBotReply(overview) {
   const response = await openai.createCompletion({
     model: 'text-davinci-002',
@@ -32,6 +38,7 @@ async function fetchBotReply(overview) {
   console.log(response)
 }
 
+// Generate cooking directions using these prompt examples
 async function fetchDirections(overview) {
   const response = await openai.createCompletion({
     model: 'text-davinci-002',
@@ -119,6 +126,7 @@ async function fetchDirections(overview) {
   fetchIngredients(ingredients)
 }
 
+// Generate ingredient list
 async function fetchIngredients(ingredients) {
   const response = await openai.createCompletion({
     model:  'text-davinci-002',
