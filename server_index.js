@@ -71,13 +71,13 @@ async function fetchBotReply(overview) {
 };
 
 // Generate cooking directions using these prompt examples
-async function fetchDirections(overview) {
+async function fetchDirections(directions) {
   const response = await openai.createCompletion({
     model: 'text-davinci-002',
-    prompt: `Generate a professional native chef's cooking directions based on the user's protein :${overview}`,
+    prompt: `Generate a professional native chef's cooking directions based on the user's protein :${directions}`,
     max_tokens: 450
   })
-  const overview = response.data.choices[0].text.trim()
+  const directions = response.data.choices[0].text.trim()
   console.log('Fetching directions...');
   // document.getElementById('output-text').innerText = ingredients
   // fetchIngredients(ingredients)
