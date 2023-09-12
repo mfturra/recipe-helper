@@ -1,11 +1,16 @@
-// Import libraries for web app
+// Import dotenv module and load environment variables
 require('dotenv').config();
-const { process } = require('./env');
-const { Configuration, OpenAIApi } = require('openai');
+
+// Import required modules
 const express = require('express');
 const bodyParser = require('body-parser');
+
+// Create an instance of Express app
 const app = express();
-const port = 3000;
+const port = 5000;
+
+// Serve static files from a public directory
+app.use(express.static('public'));
 
 // Add middleware to parse JSON request bodies
 app.use(bodyParser.json());
@@ -31,6 +36,7 @@ app.post('/process-user-input', async (req, res) => {
 })
 
 // Setup configuration to OpenAI account using API key
+const { Configuration, OpenAIApi } = require('openai');
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY
 })
