@@ -8,31 +8,49 @@ const shoppingCartText = document.getElementById('shopping-cart-text')
 
 // Setup configuration to OpenAI account using API key
 const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY
+    apiKey: process.env.OPENAI_API_KEY
 })
 
 // Establish an OpenAI instance (i.e. connection)
 const openai = new OpenAIApi(configuration)
 
 // Listen for when client presses button
-document.getElementById("send-btn").addEventListener("click", (e) => {
-  e.preventDefault(); // Prevent the default form submission behavior
-  const setupTextarea = document.getElementById('setup-textarea')
-  if (setupTextarea.value) {
-    const userInput = setupTextarea.value
-    setupInputContainer.innerHTML = `<img src="images/loading.svg" class="loading" id="loading">`
-    shoppingCartText.innerText = `Ok, let me pull that up for you...`
-    fetchBotReply(userInput)
-    fetchDirections(userInput)
-  }
+document.getElementById("send-btn").addEventListener("click", async(e) => {
+    e.preventDefault(); // Prevent the default form submission behavior
+    const setupTextarea = document.getElementById('setup-textarea');
+    const userInput = setupTextarea.value;
+    if (userInput) {
+        setupInputContainer.innerHTML = `<img src="images/loading.svg" class="loading" id="loading">`;
+        shoppingCartText.innerText = `Ok, let me pull that up for you...`;
+
+        try {
+            const response = await fetch('/generate-recipe', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ userInput }),
+            });
+        
+        if (response.ok) {
+            const data = await response.json();
+
+            // Handle the response from the server
+            console.log(data);
+        } else {
+            console.error('Error communicating with the server:', error);
+            }
+        } catch (error) {
+            console.error('Error communicating with the server:', error);
+        }
+    }
 })
 
 // Configure the model & response, while outputting response to console
 async function fetchBotReply(overview) {
   const response = await openai.createCompletion({
     model: 'text-davinci-002',
-    prompt: `Generate a short message to enthusiastically say "${overview}" sounds delicious and you need a moment
-    to process the request.`,
+    prompt: `Generate a short message to enthusiastically say "${overview}" sounds delicious and you need a moment to process the request.`,
     max_tokens: 60
   })
   shoppingCartText.innerText = response.data.choices[0].text.trim()
