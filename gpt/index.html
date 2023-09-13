@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+
+    <head><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+        <title>Ingredient List Generator</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="index.css">
+    </head>
+
+    <body>
+        <header>
+            <img src="./images/food-ingredients.png" alt="FoodIngredients">
+            <a href="/"><span>Recipe</span>Helper</a>
+        </header>
+        <main>
+            <!--The Setup-->
+            <section id="setup-container">
+                <div class="setup-inner">
+                    <img src="/images/shopping-cart.png">
+                    <div class="speech-bubble-ai" id="speech-bubble-ai">
+                        <p id="shopping-cart-text">
+                            Tell me the name of the type of meat/poultry/fish, preferred cook duration, and seasoning type. I'll give
+                            you the seasoning list and directions for how to prepare and cook it!
+                        </p>
+                    </div>
+                </div>
+                <div class="setup-inner setup-input-container" id="setup-input-container">
+                    <textarea id="setup-textarea" placeholder="Mediterranean cuisine. Greek Lamb Kleftiko"></textarea>
+                    <button class="send-btn" id="send-btn" aria-label="send">
+                        <img src="images/send-btn-icon.png" alt="send">
+                    </button>
+                </div>
+            </section>
+            <!-- The Output -->	
+            <section class="output-container" id="output-container">
+                <div id="output-img-container" class="output-img-container"></div>
+                <p id="output-ingredients"></h1>
+                <p id="output-directions"></p>
+            </section>
+        </main>
+        <footer>
+            &copy; 2023 MTurra All rights reserved
+        </footer>
+        <script type="module" src="index.js"></script>
+    </body>
+
+</html>
