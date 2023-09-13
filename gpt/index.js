@@ -54,7 +54,7 @@ async function fetchBotReply(user_input) {
     max_tokens: 60
   })
 
-  // Stores output in data.choices[0] array
+  // Stores bots reply output in an array
   choices[0] = response.data.choices[0].text.trim()
   shoppingCartText.innerText = choices[0]
   console.log(response)
@@ -65,7 +65,7 @@ async function fetchIngredients(user_input) {
   // try {
   const response = await openai.createCompletion({
     model:  'text-davinci-002',
-    prompt: `Generate a detailed professional native chef's list of ingredients in bullet points before directions that the user would need to season their protein :${user_input}
+    prompt: `Generate a detailed professional native chef's list of protein and seasoning ingredients :${user_input}
     ###
     ingredients:
     - 4 boneless skinless chicken breasts - OR 6 chicken thighs
@@ -104,7 +104,7 @@ async function fetchIngredients(user_input) {
     max_tokens: 100
   });
 
-  // Stores output in data.choices[1] array
+  // Stores ingredients output in an array
   choices[1] = response.data.choices[0].text.trim()
   document.getElementById('output-ingredients').innerText = choices[1];
   console.log(response);
@@ -157,7 +157,7 @@ async function fetchDirections(user_input) {
     max_tokens: 450
   })
 
-  // Stores ingredients log output
+  // Stores directions output in an array
   choices[2] = response.data.choices[0].text.trim()
   document.getElementById('output-directions').innerText = choices[2];
   console.log(response);
