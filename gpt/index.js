@@ -14,6 +14,9 @@ const configuration = new Configuration({
 // Establish an OpenAI instance (i.e. connection)
 const openai = new OpenAIApi(configuration)
 
+// Store log response object for console workflow 
+const choices =[]
+
 // Listen for when client presses button
 document.getElementById("send-btn").addEventListener("click", () => {
   // Setup a variable for the text area that contains user_input
@@ -33,16 +36,16 @@ document.getElementById("send-btn").addEventListener("click", () => {
 async function fetchBotReply(user_input) {
   const response = await openai.createCompletion({
     model: 'text-davinci-002',
-    prompt: `Generate a short message to enthusiastically say "${user_input}" sounds delicious and you need a moment
-    to process the request.
+    prompt: `Generate a short message to enthusiastically say "${user_input}" sounds delicious, you need a moment
+    to process the request, and these are the results.
     ###
     overview: Easy one pan Spanish chicken and rice is made with simple seasoning that come together with zesty, bold 
     flavors in this one pot, 30 minute meal. 
-    response: That meal sounds like a repeator! Let me see what I can do for you.
+    response: That meal sounds like a repeator! Let me know if this is to your liking!
     ###
     overview: No-fail roasted leg of lamb recipe, with a special Mediterranean seasoning, will give you the BEST 
     lamb roast every single time.
-    response: Consistent recipes that are fan favorites are super important! I'll cook up something that'll really 
+    response: Consistent fan favorites recipes are super important! I'll cook up something that'll really 
     elevate your palate and make you want a second plate!
     ###
     overview: ${user_input}
@@ -51,9 +54,10 @@ async function fetchBotReply(user_input) {
     max_tokens: 60
   })
 
-  const botOverview = response.data.choices.map(choice => choice.text.trim());
-  shoppingCartText.innerText += response.data.choices[0].text.trim()
-  // console.log('Bot Reply:', botOverview);
+  // Stores output in data.choices[0] array
+  choices[0] = response.data.choices[0].text.trim()
+  shoppingCartText.innerText = choices[0]
+  console.log(response)
 }
 
 // Generate ingredient list
@@ -100,15 +104,10 @@ async function fetchIngredients(user_input) {
     max_tokens: 100
   });
 
-  // Generate output in the directions output section of html file
-  const synopsis = response.data.choices[0].text.trim()
-  document.getElementById('output-ingredients').innerText = synopsis
-
-  // Generate directions as soon as ingredients are generated
-  await fetchDirections(user_input);
-  // } catch (error) {
-  //   console.error(error)
-  // }
+  // Stores output in data.choices[1] array
+  choices[1] = response.data.choices[0].text.trim()
+  document.getElementById('output-ingredients').innerText = choices[1];
+  console.log(response);
 }
 
 
@@ -157,17 +156,14 @@ async function fetchDirections(user_input) {
     `,
     max_tokens: 450
   })
-  // Generate output in the directions output section of html file
-  document.getElementById('output-directions').innerText = response.data.choices[0].text.trim()
 
-  // const botDirections = response.data.choices.map(choice => choice.text.trim());
-  // console.log('Bot Directions:', botDirections);
-  // const ingredients = response.data.choices[0].text.trim()
-  // document.getElementById('output-text').innerText += ingredients
-  // fetchIngredients(ingredients)
+  // Stores ingredients log output
+  choices[2] = response.data.choices[0].text.trim()
+  document.getElementById('output-directions').innerText = choices[2];
+  console.log(response);
 
+  // Configuration of View Results button
   setupInputContainer.innerHTML = `<button id="view-result-btn" class="view-result-btn">View Results</button>`
-  
   document.getElementById('view-result-btn').addEventListener('click', ()=>{
     document.getElementById('setup-container').style.display = 'none'
     document.getElementById('output-container').style.display = 'flex'
