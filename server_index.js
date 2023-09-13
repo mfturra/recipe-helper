@@ -46,8 +46,8 @@ app.post('/generate-recipe', async(req, res) => {
     
     // Send JSON response with results
     res.json({ botReply: 'Processing complete for: ' + botReply,
-                direction: botDirections,
-                ingredients: botIngredients});
+                botDirection: botDirections,
+                botIngredients: botIngredients});
   } catch (error) {
     console.error('Error generating recipe:', error);
     res.status(500).json({ error: 'An error occurred while generating the recipe.' });
@@ -71,27 +71,26 @@ async function fetchBotReply(overview) {
 };
 
 // Generate cooking directions using these prompt examples
-async function fetchDirections(directions) {
+async function fetchDirections(protein) {
   const response = await openai.createCompletion({
     model: 'text-davinci-002',
-    prompt: `Generate a professional native chef's cooking directions based on the user's protein :${directions}`,
+    prompt: `Generate a professional native chef's cooking directions based on the user's protein :${protein}`,
     max_tokens: 450
   })
   const directions = response.data.choices[0].text.trim()
-  console.log('Fetching directions...');
+  console.log('These are your directions: ', directions);
   // document.getElementById('output-text').innerText = ingredients
-  // fetchIngredients(ingredients)
 };
 
 // Generate ingredient list
-async function fetchIngredients(ingredients) {
+async function fetchIngredients(ingredients_list) {
   const response = await openai.createCompletion({
     model:  'text-davinci-002',
-    prompt: `Generate a detailed professional native chef's list of ingredients in bullet points before directions that the user would need to season their protein :${ingredients}`,
+    prompt: `Generate a detailed professional native chef's list of ingredients in bullet points before directions that the user would need to season their protein :${ingredients_list}`,
     max_tokens: 100
   })
   const ingredients = response.data.choices[0].text.trim()
-  console.log('Fetching ingredients list...');
+  console.log('These are your ingredients: ', ingredients);
   // document.getElementById('view-result-btn').addEventListener('click', ()=>{
   //   document.getElementById('setup-container').style.display = 'none'
   //   document.getElementById('output-container').style.display = 'flex'
